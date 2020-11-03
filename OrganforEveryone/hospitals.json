@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "name": "Hospital A",
+        "address": "ABC",
+        "latitude": 40.2637095,
+        "longitude": -76.6748222
+    },
+    {
+        
+        "id": 2,
+        "name": "Hospital B",
+        "address": "XYZ",
+        "latitude": 40.2874113,
+        "longitude": -76.8986748
+        
+    }
+]
