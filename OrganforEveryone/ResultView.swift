@@ -15,6 +15,7 @@ struct ResultView: View {
                 Text(" ---- ")
                 Text("Organ Y").bold()
             }.fixedSize()
+            //.onAppear{API().getPosts()}
             HStack{
                 Text("ETA: " ).bold()
                 Text("9:38 A.M, 11/8/2020")

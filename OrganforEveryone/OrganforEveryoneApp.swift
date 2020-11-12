@@ -10,12 +10,15 @@ import SwiftUI
 @main
 struct OrganforEveryoneApp: App {
     let organModel = OrganModel()
+    let appModel = AppModel()
     let locationManager = LocationManager()
         @Environment(\.scenePhase) private var scenePhase
         
         var body: some Scene {
             WindowGroup {
-                ContentView().environmentObject(organModel)
+                ContentView()
+                   // .environmentObject(organModel)
+                    .environmentObject(appModel)
                     .environmentObject(locationManager)
             }
 //            .onChange(of: scenePhase){phase in

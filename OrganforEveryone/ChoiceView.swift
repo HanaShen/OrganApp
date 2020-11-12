@@ -8,33 +8,34 @@
 import SwiftUI
 
 struct ChoiceView: View {
-    @EnvironmentObject var organModel : OrganModel
+    //@State var posts: [String] = []
+    @EnvironmentObject var appModel : AppModel
     var body: some View {
         Form{
             Section(header: Text("Choose hospital")){
-                Picker(selection: $organModel.chosenHospital, label: Text("All").tag(nil as Hospital?)){
-                    ForEach(organModel.allHospitals.indices, id:\.self) {index in
-                        Text(organModel.allHospitals[index].name)
-                        
+                Picker(selection: $appModel.chosenHospital, label: Text("All").tag(nil as Hospital?)){
+                    ForEach(appModel.hospitals, id:\.self) {h in
+                        Text(h)
+
                     }
                 }.pickerStyle(MenuPickerStyle())
             }
-            Section(header: Text("Choose organ")){
-                Picker(selection: $organModel.chosenHospital, label: Text("All").tag(nil as Hospital?)){
-                    ForEach(organModel.allHospitals.indices, id:\.self) {index in
-                        Text(organModel.allHospitals[index].name)
-                        
-                    }
-                }.pickerStyle(MenuPickerStyle())
-            }
-            Section(header: Text("Choose patient")){
-                Picker(selection: $organModel.chosenHospital, label: Text("First Last Name")){
-                    ForEach(organModel.allHospitals.indices, id:\.self) {index in
-                        Text(organModel.allHospitals[index].name)
-                        
-                    }
-                }.pickerStyle(MenuPickerStyle())
-            }
+//            Section(header: Text("Choose organ")){
+//                Picker(selection: $organModel.chosenHospital, label: Text("All").tag(nil as Hospital?)){
+//                    ForEach(organModel.allHospitals.indices, id:\.self) {index in
+//                        Text(organModel.allHospitals[index].name)
+//
+//                    }
+//                }.pickerStyle(MenuPickerStyle())
+//            }
+//            Section(header: Text("Choose patient")){
+//                Picker(selection: $organModel.chosenHospital, label: Text("First Last Name")){
+//                    ForEach(organModel.allHospitals.indices, id:\.self) {index in
+//                        Text(organModel.allHospitals[index].name)
+//
+//                    }
+//                }.pickerStyle(MenuPickerStyle())
+//            }
             Section() {
                 HStack {
                     Spacer()
@@ -45,7 +46,7 @@ struct ChoiceView: View {
                 }
             }
         }.navigationTitle("Get Matched")
-        
+
     }
 }
 

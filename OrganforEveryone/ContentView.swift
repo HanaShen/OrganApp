@@ -8,9 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var organModel : OrganModel
+    @EnvironmentObject var appModel : AppModel
+   // var api : API
+    @State var posts: [String] = []
     var body: some View {
         NavigationView{
+//            List{
+//                ForEach(posts, id: \.self){post in
+//                    Text(post)
+//                }
+//            }
+//            .onAppear{
+//                API().getPosts{(posts) in
+//                    self.posts = posts
+//                }
+//            }
             ZStack{
                 Color.red.opacity(0.6)
                 VStack(alignment: .center, spacing: 50){
@@ -18,6 +30,7 @@ struct ContentView: View {
                     Text("Organ for Everyone")
                         .foregroundColor(Color.white)
                         .font(.system(size: 50, weight: .bold, design: .rounded))
+                        
                     NavigationLink(destination:RootView() ){
                         Text("Start")
                             .foregroundColor(Color.white)
@@ -27,7 +40,7 @@ struct ContentView: View {
                     }
                 }
             }.edgesIgnoringSafeArea(.all)
-        }.environmentObject(organModel)
+        }.environmentObject(appModel)
     }
 }
 
@@ -39,6 +52,7 @@ struct RootView: View{
         }
     }
 }
+
 //struct ContentView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        ContentView()

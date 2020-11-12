@@ -10,7 +10,7 @@ import SwiftUI
 struct MatchedView: View {
     var body: some View {
         VStack{
-            MapView()
+            //MapView()
             ResultView().padding()  
             
             

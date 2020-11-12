@@ -27,18 +27,18 @@ typealias AllHospitals = [Hospital]
 
 class OrganModel: ObservableObject{
     @Published var allHospitals : AllHospitals
-    
+
     let destinationURl : URL
     init(){
         let filename = "hospitals"
         let mainBundle = Bundle.main
         let bundleURL = mainBundle.url(forResource: filename, withExtension: "json")!
-        
+
         let fileManager = FileManager.default
         let documentURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
         destinationURl = documentURL.appendingPathComponent(filename + ".json")
         let fileExists = fileManager.fileExists(atPath: destinationURl.path)
-        
+
         do{
             let url = fileExists ? destinationURl : bundleURL
             let data = try Data(contentsOf: url)
@@ -51,3 +51,33 @@ class OrganModel: ObservableObject{
     }
     @Published var chosenHospital = 0
 }
+
+//struct Post: Codable, Identifiable{
+//    let id = UUID()
+//    var hospital : String
+//}
+//typealias allHospitals = [Post]
+//class API: ObservableObject{
+//   //@Published var hospital: [String]
+////    init(){
+////        guard let url = URL(string: "http://127.0.0.1:8080/hospitals") else {return}
+////        URLSession.shared.dataTask(with: url){(data,_,_)in
+////            let posts: [String: [String:String]] = try! JSONDecoder().decode([String:[String:String]].self, from: data!)
+////            self.hospital = posts.map({ $0.key })
+//
+//
+//    func getPosts(completion: @escaping ([String]) -> ()){
+//        guard let url = URL(string: "http://127.0.0.1:8080/hospitals") else {return}
+//        URLSession.shared.dataTask(with: url){(data,_,_)in
+//            let posts: [String: [String:String]] = try! JSONDecoder().decode([String:[String:String]].self, from: data!)
+//            //self.hospital = posts["Albert Einstein Medical Center"]!
+//            let keys: [String] = posts.map({ $0.key })
+//            DispatchQueue.main.async {
+//                completion(keys)
+//            }
+//
+//        }
+//        .resume()
+//    //}
+//    }
+//}
