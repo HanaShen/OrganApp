@@ -48,7 +48,7 @@ struct RootView: View{
     @EnvironmentObject var organModel : OrganModel
     var body: some View{
         VStack{
-            ChoiceView()
+            ChooseHospitalView()
         }
     }
 }

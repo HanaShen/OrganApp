@@ -11,8 +11,6 @@ import Combine
 class AppModel : ObservableObject{
     @Published var hospitals = [String]()
     @Published var organs = [String]()
-    let hospitallUrlString = "http://127.0.0.1:8080/hospitals"
-    let organUrlString = "http://127.0.0.1:8080/organs"
     @Published var chosenHospital = 0
     @Published var chosenOrgan = 0
     
