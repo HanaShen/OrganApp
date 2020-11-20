@@ -45,10 +45,10 @@ struct ContentView: View {
 }
 
 struct RootView: View{
-    @EnvironmentObject var organModel : OrganModel
+    @EnvironmentObject var appModel : AppModel
     var body: some View{
         VStack{
-            ChooseHospitalView()
+            ChooseOrganView()
         }
     }
 }

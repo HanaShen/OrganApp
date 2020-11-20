@@ -9,7 +9,6 @@ import SwiftUI
 
 @main
 struct OrganforEveryoneApp: App {
-    let organModel = OrganModel()
     let appModel = AppModel()
     let locationManager = LocationManager()
         @Environment(\.scenePhase) private var scenePhase
