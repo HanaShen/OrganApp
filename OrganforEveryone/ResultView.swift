@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct ResultView: View {
+    @EnvironmentObject var appModel : AppModel
     var body: some View {
-        VStack(spacing: 10){
+        VStack(alignment: .center, spacing: 10){
             HStack{
-                Text("Patient X ").bold()
+                Text("\(appModel.chosenPatient.name) ").bold()
                 Text(" ---- ")
-                Text("Organ Y").bold()
+                Text("\(appModel.chosenOrgan.name)").bold()
             }.fixedSize()
-            //.onAppear{API().getPosts()}
             HStack{
                 Text("ETA: " ).bold()
                 Text("9:38 A.M, 11/8/2020")

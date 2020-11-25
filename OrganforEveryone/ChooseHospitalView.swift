@@ -21,6 +21,13 @@ struct ChooseHospitalView: View {
                     Spacer()
                     
                 }.padding()
+                .onTapGesture(perform: {
+                    isSearching = false
+                    searchText = hospital
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    let index = appModel.hospitals.firstIndex(where: {$0.name == hospital})
+                    appModel.chosenHospital = appModel.hospitals[index!]
+                })
                 }
                 Divider()
                     .background(Color(.systemGray4))

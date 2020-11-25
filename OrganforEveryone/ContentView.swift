@@ -13,16 +13,6 @@ struct ContentView: View {
     @State var posts: [String] = []
     var body: some View {
         NavigationView{
-//            List{
-//                ForEach(posts, id: \.self){post in
-//                    Text(post)
-//                }
-//            }
-//            .onAppear{
-//                API().getPosts{(posts) in
-//                    self.posts = posts
-//                }
-//            }
             ZStack{
                 Color.red.opacity(0.6)
                 VStack(alignment: .center, spacing: 50){
@@ -41,6 +31,7 @@ struct ContentView: View {
                 }
             }.edgesIgnoringSafeArea(.all)
         }.environmentObject(appModel)
+        .accentColor(Color.red.opacity(0.6))
     }
 }
 

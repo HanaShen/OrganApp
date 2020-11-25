@@ -9,10 +9,6 @@ import Foundation
 
 struct OrganAppData : Decodable{
     let hospitals : [Hospital]
-//    let organs : [Organ]
-//    private enum CodingKeys: String,CodingKey{
-//        case organs
-//    }
     private enum CodingKeys: String, CodingKey{
         case hospitals
     }

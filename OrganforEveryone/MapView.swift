@@ -16,12 +16,12 @@
 //        Map(coordinateRegion: $locationManager.region, interactionModes: .all, showsUserLocation: true, userTrackingMode: $userTrackingMode, annotationItems: matchedHospital, annotationContent: annotationMarkers)
 //    }
 //
-//    var matchedHospital: [Hospital]{
+//    var matchedHospital: [OrganAppData.Hospital]{
 //        //print(appModel.allHospitals)
-//        return appModel.hospitals
+//        return appModel.matchedHospitals
 //    }
-//    func annotationMarkers (item:Hospital) -> some MapAnnotationProtocol {
-//        MapMarker(coordinate:  CLLocationCoordinate2D(latitude: item.latitude, longitude: item.longitude))
+//    func annotationMarkers (item:OrganAppData.Hospital) -> some MapAnnotationProtocol {
+//        MapMarker(coordinate:  CLLocationCoordinate2D(latitude: item., longitude: <#T##CLLocationDegrees#>))
 //    }
 //    func annotationsForHospital (item:Hospital) -> some MapAnnotationProtocol {
 //        MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: item.latitude, longitude: item.longitude)) {

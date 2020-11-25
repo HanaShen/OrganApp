@@ -12,14 +12,15 @@ class AppModel : ObservableObject{
     @Published var hospitals = [OrganAppData.Hospital]()
     @Published var organs = [OrganData.Organ]()
     @Published var patients = [PatientData.Patient]()
-    @Published var chosenHospital : OrganAppData.Hospital = OrganAppData.Hospital(name:"",address:"")
+    @Published var chosenHospital : OrganAppData.Hospital = OrganAppData.Hospital(name:"")//,address:""
     @Published var chosenOrgan : OrganData.Organ = OrganData.Organ(name: "")
     @Published var chosenPatient : PatientData.Patient = PatientData.Patient(name: "", age: "", blood_group: "", sex: "", weight: "")
+   // var matching = 
     
     
-    let url1 = URL(string: "http://127.0.0.1:8080/hospitals")!
-    let url2 = URL(string: "http://127.0.0.1:8080/organs")!
-    let url3 = URL(string: "http://127.0.0.1:8080/patients")!
+      let url1 = URL(string: "http://127.0.0.1:8080/hospitals")!
+      let url2 = URL(string: "http://127.0.0.1:8080/organs")!
+      let url3 = URL(string: "http://127.0.0.1:8080/patients")!
     enum URLError : Error{
         case unknown
     }
@@ -36,7 +37,7 @@ class AppModel : ObservableObject{
             }
             .decode(type: OrganAppData.self, decoder: JSONDecoder())
             .map{$0.hospitals}
-        
+
         let publisher2 = URLSession.shared.dataTaskPublisher(for: url2)
             .tryMap{ data, response -> Data in
                 guard let httpResponse = response as? HTTPURLResponse,
@@ -47,7 +48,7 @@ class AppModel : ObservableObject{
             }
             .decode(type: OrganData.self, decoder: JSONDecoder())
             .map{$0.organs}
-        
+
         let publisher3  = URLSession.shared.dataTaskPublisher(for: url3)
             .tryMap{ data, response -> Data in
                 guard let httpResponse = response as? HTTPURLResponse,
@@ -62,50 +63,48 @@ class AppModel : ObservableObject{
         allCancellable = Publishers.Zip3(publisher1,publisher2,publisher3)
                                             .eraseToAnyPublisher()
                                             .replaceError(with: ([],[],[]))
-                                            //        .catch{ _ in
-                                            //            Just(([], []))
-                                            //        }
                                             .sink(receiveValue: {hospitals, organs, patients in
                                                 DispatchQueue.main.async{
                                                     self.hospitals =  hospitals.map{$0}
                                                     self.organs = organs.map{$0}
                                                     self.patients = patients.map{$0}
                                                 }
-                                                
+
                                             })
     }
     
     
-    //    init(){
-    //        retreiveHospitalDataWithCombine()
-    //        retreiveOrganDataWithCombine()
-    //    }
-    
-    //
-    //        var allCancellable : Cancellable?
-    //        func retreiveHospitalDataWithCombine(){
-    //
-    //            let url = URL(string: hospitallUrlString)!
-    //            let urlSession = URLSession.shared
-    //
-    //            allCancellable = urlSession.dataTaskPublisher(for: url)
-    //                .tryMap{ data, response -> Data in
-    //                    guard let httpResponse = response as? HTTPURLResponse,
-    //                          200..<300 ~= httpResponse.statusCode else{
-    //                        throw URLError.unknown
-    //                    }
-    //                    return data
-    //                }
-    //                .decode(type: OrganAppData.self, decoder: JSONDecoder())
-    //                .map{$0.hospitals}
-    //                .replaceError(with:[OrganAppData])
-    //
-    //                .sink{(entries) in
-    //                    DispatchQueue.main.async{
-    //                        self.hospitals =  entries.map{$0.name}
-    //                }
-    //                }
-    //        }
+//        init(){
+//            retreiveHospitalDataWithCombine()
+//            print(hospitals)
+//
+//        }
+//
+//
+//            var allCancellable : Cancellable?
+//            func retreiveHospitalDataWithCombine(){
+//
+//               // let url = url1
+//                let urlSession = URLSession.shared
+//
+//                allCancellable = urlSession.dataTaskPublisher(for: url1)
+//                    .tryMap{ data, response -> Data in
+//                        guard let httpResponse = response as? HTTPURLResponse,
+//                              200..<300 ~= httpResponse.statusCode else{
+//                            throw URLError.unknown
+//                        }
+//                        return data
+//                    }
+//                    .decode(type: OrganAppData.self, decoder: JSONDecoder())
+//                    .map{$0.hospitals}
+//                    .replaceError(with:[])
+//
+//                    .sink{(entries) in
+//                        DispatchQueue.main.async{
+//                            self.hospitals =  entries.map{$0}
+//                    }
+//                    }
+        //    }
     //    func retreiveOrganDataWithCombine(){
     //
     //        let url = URL(string: organUrlString)!

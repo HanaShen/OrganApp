@@ -25,7 +25,8 @@ struct ChoosePatient: View {
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                     let index = appModel.patients.firstIndex(where: {$0.name == patient})
                     appModel.chosenPatient = appModel.patients[index!]
-                })
+                }
+                )
                 
                 Divider()
                     .background(Color(.systemGray4))

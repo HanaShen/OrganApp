@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct OrganforEveryoneApp: App {
     let appModel = AppModel()
-    let locationManager = LocationManager()
+    //let locationManager = LocationManager()
         @Environment(\.scenePhase) private var scenePhase
         
         var body: some Scene {
@@ -18,7 +18,7 @@ struct OrganforEveryoneApp: App {
                 ContentView()
                    // .environmentObject(organModel)
                     .environmentObject(appModel)
-                    .environmentObject(locationManager)
+                    //.environmentObject(locationManager)
             }
 //            .onChange(of: scenePhase){phase in
 //                switch phase{
