@@ -28,10 +28,10 @@ struct ConfirmPageView: View {
                 Text("Hospital: ").bold()
                 Text(appModel.chosenHospital.name)
             }
-            NavigationLink(destination: ResultView(), tag: 1, selection: $selection) {
+            NavigationLink(destination: MatchedView(), tag: 1, selection: $selection) {
                 Button(action: {
                     self.selection = 1
-                
+                    appModel.retreiveMatching()
                 }) {
                     HStack {
                         Text("Confirm and check result")

@@ -12,10 +12,12 @@ class AppModel : ObservableObject{
     @Published var hospitals = [OrganAppData.Hospital]()
     @Published var organs = [OrganData.Organ]()
     @Published var patients = [PatientData.Patient]()
-    @Published var chosenHospital : OrganAppData.Hospital = OrganAppData.Hospital(name:"")//,address:""
+    @Published var matching =  [MatchingData.Matching]()
+    @Published var chosenHospital : OrganAppData.Hospital = OrganAppData.Hospital(name:"",address:"")
     @Published var chosenOrgan : OrganData.Organ = OrganData.Organ(name: "")
     @Published var chosenPatient : PatientData.Patient = PatientData.Patient(name: "", age: "", blood_group: "", sex: "", weight: "")
-   // var matching = 
+    
+    private var storein = Set<AnyCancellable>()
     
     
       let url1 = URL(string: "http://127.0.0.1:8080/hospitals")!
@@ -25,6 +27,7 @@ class AppModel : ObservableObject{
         case unknown
     }
     var allCancellable : Cancellable?
+   
     
     init(){
         let publisher1 = URLSession.shared.dataTaskPublisher(for: url1)
@@ -60,6 +63,22 @@ class AppModel : ObservableObject{
             .decode(type: PatientData.self, decoder: JSONDecoder())
             .map{$0.patients}
         
+//        let urlPatient = chosenPatient.name.replacingOccurrences(of: " ", with: "")
+//        print("patient \(urlPatient)")
+//        let url4 = URL(string: "http://127.0.0.1:8080/matching/\(urlPatient)/\(chosenOrgan.name)")!
+        //let decoder = JSONDecoder()
+        //decoder.keyDecodingStrategy = .convertFromSnakeCase
+//        let publisher4 = URLSession.shared.dataTaskPublisher(for: url4)
+//            .tryMap{ data, response -> Data in
+//                guard let httpResponse = response as? HTTPURLResponse,
+//                      200..<300 ~= httpResponse.statusCode else{
+//                    throw URLError.unknown
+//                }
+//                return data
+//            }
+//            .decode(type: MatchingData.self, decoder: JSONDecoder())
+//            .map{$0.matching}
+        
         allCancellable = Publishers.Zip3(publisher1,publisher2,publisher3)
                                             .eraseToAnyPublisher()
                                             .replaceError(with: ([],[],[]))
@@ -72,13 +91,37 @@ class AppModel : ObservableObject{
 
                                             })
     }
+    var cancellable : Cancellable?
     
     
-//        init(){
-//            retreiveHospitalDataWithCombine()
-//            print(hospitals)
-//
-//        }
+    func retreiveMatching(){
+        let urlPatient = chosenPatient.name.replacingOccurrences(of: " ", with: "")
+        let url4 = URL(string: "http://127.0.0.1:8080/matching/\(urlPatient)/\(chosenOrgan.name)")!
+        
+        cancellable = URLSession.shared.dataTaskPublisher(for: url4)
+            .tryMap{ data, response -> Data in
+                guard let httpResponse = response as? HTTPURLResponse,
+                      200..<300 ~= httpResponse.statusCode else{
+                    throw URLError.unknown
+                }
+                return data
+            }
+            .decode(type: MatchingData.self, decoder: JSONDecoder())
+            .map{$0.matching}
+            .replaceError(with: [])
+           // .receive(on: RunLoop.main)
+            
+            .sink(receiveValue: {matching in
+                DispatchQueue.main.async {
+                    self.matching = matching.map{$0}
+                    print(matching[0])
+                }
+            })
+        //.store(in: &storein)
+    }
+
+    
+
 //
 //
 //            var allCancellable : Cancellable?

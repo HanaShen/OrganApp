@@ -12,7 +12,8 @@ struct OrganAppData : Decodable{
     private enum CodingKeys: String, CodingKey{
         case hospitals
     }
-    struct Hospital: Decodable{
+    struct Hospital: Decodable, Identifiable{
+        var id = UUID()
         let name : String
         let address: String
         
