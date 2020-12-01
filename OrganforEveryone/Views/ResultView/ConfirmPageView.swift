@@ -28,7 +28,7 @@ struct ConfirmPageView: View {
                 Text("Hospital: ").bold()
                 Text(appModel.chosenHospital.name)
             }
-            NavigationLink(destination: MatchedView(), tag: 1, selection: $selection) {
+            NavigationLink(destination: ResultView(), tag: 1, selection: $selection) {
                 Button(action: {
                     self.selection = 1
                     appModel.retreiveMatching()

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var appModel : AppModel
-   // var api : API
     @State var posts: [String] = []
     var body: some View {
         NavigationView{

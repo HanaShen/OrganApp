@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct MatchedView: View {
+    @EnvironmentObject var appModel : AppModel
     var body: some View {
         VStack{
             //MapView()
-            ResultView().padding()  
+            //Text("result")
+            //Text(appModel.matching[0].donorName)
             
             
         }
